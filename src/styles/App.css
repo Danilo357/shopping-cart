@@ -1,0 +1,38 @@
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+.wrapping {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 1200px;
+}
+
+img {
+  width: 200px;
+  height: 300px;
+}
+
+.free {
+  background: yellow;
+  margin: 5px;
+}
+
+.notfree {
+  display: none;
+  margin: 5px;
+}
+
+.leftside {
+  background: cornflowerblue;
+  width: 150px;
+}
+.finalwrap {
+  display: flex;
+}
