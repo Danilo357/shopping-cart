@@ -29,11 +29,13 @@ export default function reducer(anything = initialState, action) {
 export function usePotato() {
   const disp = useDispatch()
   const pro = useSelector(whatState => whatState.Reducer.product)
+  const add = shops => disp(addToCart(shops))
+  const remove = id => disp(removeFromCart(id))
   const fetch = () => disp(data())
   useEffect(() => {
     fetch()
   }, [])
-  return { pro }
+  return { pro, add, remove, fetch }
 }
 
 //call for data
@@ -41,11 +43,26 @@ export function usePotato() {
 function data() {
   return any => {
     axios.get("/products").then(response => {
-      console.log(response.data)
       any({
         type: list_items,
         payload: response.data
       })
+    })
+  }
+}
+
+function addToCart(shops) {
+  return dispatch => {
+    axios.post("/products", { title: shops, completed: false }).then(resp => {
+      dispatch(data())
+    })
+  }
+}
+
+function removeFromCart(id) {
+  return dispatch => {
+    axios.delete("/products/" + id).then(resp => {
+      dispatch(data())
     })
   }
 }

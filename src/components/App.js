@@ -5,6 +5,7 @@ import { Provider } from "react-redux"
 import store from "../Redux/store"
 import Greeting from "./Greeting"
 import { usePotato } from "../Redux/ducks/shopping"
+import Form from "./Form"
 
 function Wrap() {
   return (
@@ -18,6 +19,7 @@ function App(props) {
   const { pro } = usePotato()
   return (
     <div>
+      <Form />
       <Greeting banana={pro} />
     </div>
   )
