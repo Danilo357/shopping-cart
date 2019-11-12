@@ -5,11 +5,12 @@ import { useSelector, useDispatch } from "react-redux"
 //action name
 
 const list_items = "items"
-
+const shoppingcart = "cart"
 //reducer
 
 const initialState = {
-  product: []
+  product: [],
+  cart: []
 }
 
 export default function reducer(anything = initialState, action) {
@@ -19,6 +20,11 @@ export default function reducer(anything = initialState, action) {
         ...anything,
         product: action.payload
       }
+    case shoppingcart:
+      return {
+        ...anything,
+        cart: action.payload
+      }
     default:
       return anything
   }
@@ -26,16 +32,31 @@ export default function reducer(anything = initialState, action) {
 
 //custom hook
 
-export function usePotato() {
+export function useShopping() {
   const disp = useDispatch()
-  const pro = useSelector(whatState => whatState.Reducer.product)
+  const pro = useSelector(appState => appState.Reducer.product)
+  const cart = useSelector(appState => appState.Reducer.cart)
   const add = shops => disp(addToCart(shops))
   const remove = id => disp(removeFromCart(id))
-  const fetch = () => disp(data())
+  const fetch = () => disp(data(), datacart())
   useEffect(() => {
     fetch()
   }, [])
-  return { pro, add, remove, fetch }
+  return { pro, add, remove, fetch, cart }
+}
+
+export function useCart() {
+  const disp = useDispatch()
+  const cart = useSelector(appState => appState.Reducer.cart)
+  const products = useSelector(appState => appState.Reducer.product)
+
+  let items = []
+
+  cart.forEach(cartItem => {
+    items.push(products.find(prod => prod.id === cartItem.id))
+  })
+
+  return { items }
 }
 
 //call for data
@@ -51,10 +72,21 @@ function data() {
   }
 }
 
-function addToCart(shops) {
+function datacart() {
+  return any => {
+    axios.get("/products").then(response => {
+      any({
+        type: shoppingcart,
+        payload: response.data
+      })
+    })
+  }
+}
+
+function addToCart(products) {
   return dispatch => {
-    axios.post("/products", { title: shops, completed: false }).then(resp => {
-      dispatch(data())
+    axios.post("/cart").then(resp => {
+      dispatch(data)
     })
   }
 }

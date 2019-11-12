@@ -4,7 +4,7 @@ import "../styles/App.css"
 import { Provider } from "react-redux"
 import store from "../Redux/store"
 import Greeting from "./Greeting"
-import { usePotato } from "../Redux/ducks/shopping"
+import { useShopping } from "../Redux/ducks/shopping"
 import Form from "./Form"
 
 function Wrap() {
@@ -16,11 +16,11 @@ function Wrap() {
 }
 
 function App(props) {
-  const { pro } = usePotato()
+  const { pro } = useShopping()
   return (
     <div>
-      <Form />
       <Greeting banana={pro} />
+      <Form />
     </div>
   )
 }

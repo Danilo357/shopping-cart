@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react"
-import { usePotato } from "../Redux/ducks/shopping"
+import { useShopping } from "../Redux/ducks/shopping"
 import Icon from "../lib/Icon"
 
 export default function(props) {
-  const { shop, remove, toggle } = usePotato()
+  const { shop, toggle } = useShopping()
   useEffect(() => {})
-  const { add } = usePotato()
+  const { add } = useShopping()
   const [shops, setShops] = useState("")
-  function handleSubmit(e) {
+  function handleClick(e) {
     e.preventDefault()
 
-    add(shops)
-    setShops("")
+    // add(shops)
+    add("")
+    // setShops("")
   }
   return (
     <div>
@@ -91,6 +92,7 @@ export default function(props) {
                 {item.currencyFormat}&nbsp;
                 {item.price}
               </p>
+
               <p>
                 {`${item.installments} payments of ${item.currencyFormat} ${(
                   item.price / item.installments
@@ -100,12 +102,12 @@ export default function(props) {
 
               <div className="container">
                 <div className="wrap">
-                  <form onSubmit={handleSubmit}>
+                  <form>
                     <button
                       placeholder="Add to cart"
                       className="inputt"
                       type="text"
-                      onChange={e => setShops(e.target.value)}
+                      onClick={e => handleClick(e, item.id)}
                       value={shops}
                     >
                       Add to cart
