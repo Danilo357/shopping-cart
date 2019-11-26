@@ -1,28 +1,20 @@
-import React from "react"
-import "normalize.css/normalize.css"
-import "../styles/App.css"
-import { Provider } from "react-redux"
-import store from "../Redux/store"
-import Greeting from "./Greeting"
-import { useShopping } from "../Redux/ducks/shopping"
-import Form from "./Form"
+import React from "react";
+import "normalize.css/normalize.css";
+import "../styles/App.css";
+import { Provider } from "react-redux";
+import store from "../Redux/store";
+import Products from "./Products";
+// import { useShopping } from "../Redux/ducks/shopping";
 
-function Wrap() {
+import Cart from "./Cart";
+
+export default props => {
   return (
     <Provider store={store}>
-      <App />
+      <div className="container">
+        <Products />
+        <Cart />
+      </div>
     </Provider>
-  )
-}
-
-function App(props) {
-  const { pro } = useShopping()
-  return (
-    <div>
-      <Greeting banana={pro} />
-      <Form />
-    </div>
-  )
-}
-
-export default Wrap
+  );
+};

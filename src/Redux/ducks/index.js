@@ -1,1 +1,2 @@
-export { default as Reducer } from "./shopping"
+export { default as productState } from "./shopping";
+export { default as cartState } from "./cart";
